@@ -24,34 +24,29 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 
 data class DropDownItem(
-    val text: String,
-
-    )
+    val text: String
+)
 
 @Composable
 fun PersonItem(
     personName: String,
-    dropDownItems: List<DropDownItem>,
+    dropdownItems: List<DropDownItem>,
     modifier: Modifier = Modifier,
     onItemClick: (DropDownItem) -> Unit
 ) {
     var isContextMenuVisible by rememberSaveable {
         mutableStateOf(false)
     }
-
     var pressOffset by remember {
         mutableStateOf(DpOffset.Zero)
     }
-
     var itemHeight by remember {
         mutableStateOf(0.dp)
     }
-
-    val density = LocalDensity.current
-
     val interactionSource = remember {
         MutableInteractionSource()
     }
+    val density = LocalDensity.current
 
     Card(
         elevation = 4.dp,
@@ -83,25 +78,22 @@ fun PersonItem(
             Text(text = personName)
         }
         DropdownMenu(
-            expanded = isContextMenuVisible, onDismissRequest = { isContextMenuVisible = false },
+            expanded = isContextMenuVisible,
+            onDismissRequest = {
+                isContextMenuVisible = false
+            },
             offset = pressOffset.copy(
                 y = pressOffset.y - itemHeight
             )
         ) {
-            dropDownItems.forEach { item ->
-                DropdownMenuItem(
-                    onClick = {
-                        onItemClick(item)
-                        isContextMenuVisible = false
-                    }
-                ) {
-                    Text(text = item.text)
+            dropdownItems.forEach {
+                DropdownMenuItem(onClick = {
+                    onItemClick(it)
+                    isContextMenuVisible = false
+                }) {
+                    Text(text = it.text)
                 }
-
-
             }
-
         }
-
     }
 }

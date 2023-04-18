@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         PersonItem(
                             personName = it,
-                            dropDownItems = listOf(
+                            dropdownItems = listOf(
                                 DropDownItem("Item 1"),
                                 DropDownItem("Item 2"),
                                 DropDownItem("Item 3"),
